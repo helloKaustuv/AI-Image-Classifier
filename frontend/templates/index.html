@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Detector — Real or AI-Generated?</title>
+    <meta name="description" content="Upload any image and instantly detect whether it was created by AI or captured as a real photograph. Powered by OpenAI CLIP.">
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <circle cx="18" cy="18" r="16" stroke="url(#logo-grad)" stroke-width="2.5"/>
+                    <path d="M12 22L18 12L24 22H12Z" stroke="url(#logo-grad)" stroke-width="2" stroke-linejoin="round"/>
+                    <circle cx="18" cy="19" r="3" fill="url(#logo-grad)"/>
+                    <defs>
+                        <linearGradient id="logo-grad" x1="0" y1="0" x2="36" y2="36">
+                            <stop stop-color="#818cf8"/>
+                            <stop offset="1" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <h1>AI <span class="gradient-text">Detector</span></h1>
+            </div>
+            <p class="subtitle">Upload an image to detect if it's AI-generated or a real photograph</p>
+        </header>
+
+        <!-- Main Card -->
+        <main class="card" id="main-card">
+
+            <!-- Upload Zone -->
+            <div id="upload-zone" class="upload-zone">
+                <div class="upload-icon">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor">
+                        <rect x="8" y="12" width="48" height="40" rx="6" stroke-width="2.5"/>
+                        <circle cx="22" cy="28" r="5" stroke-width="2"/>
+                        <path d="M8 42L22 32L34 40L44 30L56 42" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M32 4V16M32 4L26 10M32 4L38 10" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <p class="upload-text">Drag & drop an image here</p>
+                <p class="upload-hint">or click to browse files</p>
+                <p class="upload-formats">PNG, JPG, JPEG, WebP, GIF, BMP, TIFF</p>
+                <input type="file" id="file-input" accept="image/*" hidden>
+            </div>
+
+            <!-- Image Preview -->
+            <div id="preview-section" class="preview-section hidden">
+                <div class="preview-wrapper">
+                    <img id="preview-image" src="" alt="Uploaded image preview">
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading hidden">
+                <div class="loading-ring">
+                    <div class="ring-segment"></div>
+                    <div class="ring-segment"></div>
+                    <div class="ring-segment"></div>
+                </div>
+                <p class="loading-text">Analyzing image<span class="dots"></span></p>
+                <p class="loading-hint">Running CLIP zero-shot classification...</p>
+            </div>
+
+            <!-- Results -->
+            <div id="results" class="results hidden">
+                <!-- Confidence Gauge -->
+                <div class="gauge-container">
+                    <svg class="gauge" viewBox="0 0 200 200">
+                        <circle class="gauge-track" cx="100" cy="100" r="85"/>
+                        <circle id="gauge-ring" class="gauge-fill" cx="100" cy="100" r="85"/>
+                    </svg>
+                    <div class="gauge-label">
+                        <span id="confidence-value" class="gauge-number">0</span>
+                        <span class="gauge-percent">%</span>
+                    </div>
+                </div>
+
+                <!-- Label Badge -->
+                <div id="result-label" class="result-badge"></div>
+
+                <!-- Score Breakdown -->
+                <div class="score-breakdown">
+                    <div class="score-row">
+                        <span class="score-name">AI Score</span>
+                        <div class="score-track">
+                            <div id="ai-bar" class="score-fill ai-fill"></div>
+                        </div>
+                        <span id="ai-score-text" class="score-value">0%</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-name">Real Score</span>
+                        <div class="score-track">
+                            <div id="real-bar" class="score-fill real-fill"></div>
+                        </div>
+                        <span id="real-score-text" class="score-value">0%</span>
+                    </div>
+                </div>
+
+                <!-- Reset Button -->
+                <button id="reset-btn" class="reset-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                    Try Another Image
+                </button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Powered by <strong>OpenAI CLIP</strong> &middot; Zero-shot Classification with Prompt Ensembling</p>
+        </footer>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

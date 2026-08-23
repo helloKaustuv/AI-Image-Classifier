@@ -1,0 +1,9 @@
+torch
+torchvision
+open-clip-torch
+Pillow
+flask
+flask-cors
+timm
+gdown
+gunicorn
